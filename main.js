@@ -1,13 +1,18 @@
 const express = require("express");
+const dotenv = require("dotenv");
+dotenv.config();
+const cors = require("cors");
+
+const userRoutes = require("./routes/user");
+
+// Running express server
 const app = express();
-const PORT = 3000;
+app.use(cors());
+const port = process.env.PORT || 8000;
 
-app.use(express.json());
-
-app.get("/", (req, res) => {
-  res.send("Hello, Express framework!");
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+// route middlewares
+app.use("/api", userRoutes);
+app.listen(port, () => {
+  // eslint-disable-next-line no-console
+  console.log(`App listening at http://localhost:${port} for Sibamart App`);
 });
