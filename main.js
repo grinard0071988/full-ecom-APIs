@@ -4,14 +4,18 @@ dotenv.config();
 const cors = require("cors");
 
 const userRoutes = require("./routes/user");
+const productRoutes = require("./routes/product");
 
 // Running express server
 const app = express();
 app.use(cors());
-const port = process.env.PORT || 8000;
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+const port = process.env.PORT || 8002;
 // route middlewares
-app.use("/api", userRoutes);
+app.use("/users", userRoutes);
+app.use("/products", productRoutes);
 app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`App listening at http://localhost:${port} for Sibamart App`);
